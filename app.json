@@ -20,7 +20,11 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.shreem.bookiq"
+      "package": "com.shreem.bookiq",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -40,6 +44,12 @@
         }
       ]
     ],
-    "scheme": "bookiq"
+    "scheme": "bookiq",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "5b7336d1-0ac2-491c-9a3d-84ad074ccdac"
+      }
+    }
   }
 }
