@@ -5,6 +5,8 @@ export default function ScanLayout() {
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="camera" />
       <Stack.Screen name="result" />
+      <Stack.Screen name="shelf-camera" />
+      <Stack.Screen name="shelf-result" />
     </Stack>
   );
 }

@@ -74,13 +74,23 @@ export default function HomeScreen() {
         <View style={styles.heroContent}>
           <Text style={styles.heroTitle}>One scan. Every detail.</Text>
           <Text style={styles.heroSubtitle}>Identify any book by scanning its cover with AI.</Text>
-          <TouchableOpacity 
-            style={styles.heroButton}
-            onPress={() => router.push('/scan/camera')}
-          >
-            <Camera color={colors.primary} size={20} style={{ marginRight: 8 }} />
-            <Text style={[styles.heroButtonText, { color: colors.primary }]}>Start Scanning</Text>
-          </TouchableOpacity>
+          <View style={{ flexDirection: 'row', gap: 10 }}>
+            <TouchableOpacity 
+              style={styles.heroButton}
+              onPress={() => router.push('/scan/camera')}
+            >
+              <Camera color={colors.primary} size={18} style={{ marginRight: 6 }} />
+              <Text style={[styles.heroButtonText, { color: colors.primary }]}>Book</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity 
+              style={[styles.heroButton, { backgroundColor: 'rgba(255,255,255,0.2)' }]}
+              onPress={() => router.push('/scan/shelf-camera')}
+            >
+              <Book color="#fff" size={18} style={{ marginRight: 6 }} />
+              <Text style={[styles.heroButtonText, { color: '#fff' }]}>Shelf</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <BookOpen color="rgba(255,255,255,0.2)" size={120} style={styles.heroIcon} />
       </View>
