@@ -24,9 +24,9 @@ export default function CameraScreen() {
   if (!permission.granted) {
     return (
       <View style={[styles.container, { backgroundColor: colors.background, justifyContent: 'center', alignItems: 'center', padding: 20 }]}>
-        <Text style={[styles.message, { color: colors.text }]}>We need your permission to show the camera</Text>
+        <Text style={[styles.message, { color: colors.text }]}>Camera access is required to scan a book cover.</Text>
         <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={requestPermission}>
-          <Text style={styles.buttonText}>Grant Permission</Text>
+          <Text style={styles.buttonText}>Continue</Text>
         </TouchableOpacity>
       </View>
     );
