@@ -13,7 +13,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.shreem.bookiq"
+      "bundleIdentifier": "com.shreem.bookiq",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -29,12 +32,19 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/5b7336d1-0ac2-491c-9a3d-84ad074ccdac"
+    },
     "plugins": [
       "expo-router",
+      "expo-updates",
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow BookIQ to access your camera to scan book covers."
+          "cameraPermission": "BookIQ requires camera access so you can quickly scan book covers and add them to your collection."
         }
       ],
       [

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Switch, Alert, TextInput } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
 import { supabase } from '../../lib/supabase';
-import { LogOut, User, Moon, Sun, Settings, Heart } from 'lucide-react-native';
+import { LogOut, User, Moon, Sun, Settings, Heart, Trash2 } from 'lucide-react-native';
 import { Profile } from '../../types/database';
 import { formatGrade } from '../../lib/utils';
 
@@ -61,6 +61,42 @@ export default function ProfileScreen() {
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) Alert.alert('Error', error.message);
+  };
+
+  const handleDeleteAccount = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user || !user.email) {
+      Alert.alert('Error', 'Could not fetch user details.');
+      return;
+    }
+
+    Alert.prompt(
+      'Delete Account',
+      `Please type your email (${user.email}) to confirm account deletion. This action cannot be undone.`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: async (text?: string) => {
+            if (text?.toLowerCase() === user.email?.toLowerCase()) {
+              // Note: Supabase client cannot delete itself directly. This requires an Edge Function or RPC.
+              const { error } = await supabase.rpc('delete_user');
+              if (error) {
+                // Fallback or alert if RPC is missing
+                Alert.alert('Error', 'Could not delete account. Please contact support. ' + error.message);
+              } else {
+                await supabase.auth.signOut();
+                Alert.alert('Success', 'Your account has been deleted.');
+              }
+            } else {
+              Alert.alert('Error', 'Email did not match. Account deletion cancelled.');
+            }
+          }
+        }
+      ],
+      'plain-text'
+    );
   };
 
   return (
@@ -162,6 +198,18 @@ export default function ProfileScreen() {
             <View style={styles.rowLeft}>
               <LogOut color={colors.error} size={20} />
               <Text style={[styles.rowText, { color: colors.error }]}>Sign Out</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={[styles.card, { backgroundColor: colors.surface, marginTop: 12 }]}
+          onPress={handleDeleteAccount}
+        >
+          <View style={styles.row}>
+            <View style={styles.rowLeft}>
+              <Trash2 color={colors.error} size={20} />
+              <Text style={[styles.rowText, { color: colors.error }]}>Delete Account</Text>
             </View>
           </View>
         </TouchableOpacity>
